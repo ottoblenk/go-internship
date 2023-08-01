@@ -2,11 +2,36 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 )
 
 func main() {
+	// Define the data for the templates (e.g., title and year)
+	// Define the data for the templates (e.g., title and year)
+	data := map[string]string{
+		"Title": "My Website",
+		"Year":  "2023",
+	}
+
+	// Load the base template and parse child templates
+	templates := template.Must(template.ParseFiles("base_template.html", "child_template1.html", "child_template2.html"))
+
+	// Handle requests using a handler function
+	http.HandleFunc("/page1", func(w http.ResponseWriter, r *http.Request) {
+		// Execute child_template1.html using the base template and data
+		templates.ExecuteTemplate(w, "base_template.html", data)
+	})
+
+	http.HandleFunc("/page2", func(w http.ResponseWriter, r *http.Request) {
+		// Execute child_template2.html using the base template and data
+		templates.ExecuteTemplate(w, "base_template.html", data)
+	})
+
+	// Start the server
+	http.ListenAndServe(":8080", nil)
+
 	http.HandleFunc("/", homeHandler)
 	http.HandleFunc("/about", aboutHandler)
 	http.HandleFunc("/contact", contactHandler)
