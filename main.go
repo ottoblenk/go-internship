@@ -16,7 +16,7 @@ func main() {
 	}
 
 	// Load the base template and parse child templates
-	templates := template.Must(template.ParseFiles("base_template.html", "child_template1.html", "child_template2.html"))
+	templates := template.Must(template.ParseFiles("base.html", "home.html", "contact.html", "about.html", "example.html"))
 
 	// Handle requests using a handler function
 	http.HandleFunc("/page1", func(w http.ResponseWriter, r *http.Request) {
