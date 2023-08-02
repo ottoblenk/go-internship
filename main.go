@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 	"path/filepath"
@@ -18,23 +19,28 @@ func main() {
 
 	// Home Page: http://localhost:8090/
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		templates.ExecuteTemplate(w, "base.html", nil)
+		templates.ExecuteTemplate(w, "home.html", nil)
 	})
 
 	// Contact Page: http://localhost:8090/contact
 	http.HandleFunc("/contact", func(w http.ResponseWriter, r *http.Request) {
-		templates.ExecuteTemplate(w, "base.html", nil)
+		templates.ExecuteTemplate(w, "contact.html", nil)
 	})
 
 	// About Page: http://localhost:8090/about
 	http.HandleFunc("/about", func(w http.ResponseWriter, r *http.Request) {
-		templates.ExecuteTemplate(w, "base.html", nil)
+		templates.ExecuteTemplate(w, "about.html", nil)
 	})
 
 	// 		New Page: http://localhost:8090/xyz
 	//	http.HandleFunc("/xyz", func(w http.ResponseWriter, r *http.Request) {
 	//		templates.ExecuteTemplate(w, "base.html", nil)
 	//	})
+
+	//Server Adress
+	fmt.Println("Server running on http://localhost:8090/")
+	fmt.Println("Server running on http://localhost:8090/contact")
+	fmt.Println("Server running on http://localhost:8090/about")
 
 	// Start the server
 	http.ListenAndServe(":8090", nil)
